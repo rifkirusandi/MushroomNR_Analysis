@@ -4,5 +4,10 @@
 *.shx
 *.prj
 *.html
+*.TAB
+*.tab
+*.dat
+*.id
+*.map
 __pycache__/
 .ipynb_checkpoints/
