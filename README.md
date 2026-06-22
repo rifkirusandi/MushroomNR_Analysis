@@ -44,7 +44,7 @@ flowchart TD
 The analysis operates through a sophisticated, multi-stage spatial pipeline:
 
 ### 1. Dynamic Data Ingestion & Categorization
-The algorithm dynamically loads network datasets via wildcard scanning (`*.xlsx`) and categorizes sites purely based on the strings found in their `TECHNOLOGY` column:
+The algorithm dynamically loads network datasets via wildcard scanning (`*.xlsx`) and categorizes sites purely based on the `TECHNOLOGY`:
 * **NR21 Only:** Contains `NR2100` (but no NR2600).
 * **NR26 Only:** Contains `NR2600`, `NR26G`, or `NR26`.
 * **NR21 & NR26:** Contains both.
