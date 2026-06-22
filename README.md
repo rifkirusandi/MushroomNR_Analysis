@@ -17,20 +17,22 @@ To overcome missing or inaccurate spreadsheet data, the script loads raw MapInfo
 * This precisely assigns every single site its true `Morpho` classification (e.g., `DENSE URBAN`, `RURAL`, `SUB URBAN`).
 * Any duplicate intersections caused by topographically overlapping sliver polygons are automatically dropped to maintain dataset integrity.
 
-### 3. Continuous Coverage Enforcement (3GPP Thresholds)
-To ensure that an `NR21 Only` site is actually covered by the surrounding `NR26` infrastructure, the algorithm enforces a **Maximum Distance Threshold (Radius)**. It calculates the Haversine distance from the central site to all surrounding neighbors and rejects any neighbor that is too far away to provide continuous RF coverage based on its clutter type:
-* **DENSE URBAN:** Max 500 meters
-* **URBAN:** Max 1,000 meters
-* **SUB URBAN:** Max 2,000 meters
-* **RURAL:** Max 5,000 meters
+### 3. Dual-Tier Geometric & Coverage Analysis
+The script evaluates every `NR21 Only` site against its surrounding `NR26` infrastructure using a dual-tier algorithm:
 
-### 4. Geometric Surround Detection (KNN Angular Gap)
-Finally, to guarantee the site is surrounded in a 360-degree manner (and not just sitting on the edge of a cluster):
-1. Finds the **20 Nearest Neighbors**.
-2. Filters down to the neighbors that are upgraded (`NR21 & NR26` or `NR26 Only`) and within the physical **Continuous Coverage** distance threshold.
-3. If there are at least 3 valid neighbors, it mathematically calculates the **Azimuth/Bearing Angles** from the central site to each neighbor.
-4. It sorts the angles and calculates the angular gaps between them. 
-5. If the **Maximum Angular Gap** is `<= 210 degrees`, the site is officially flagged as an **`NR21 Mushroom`**.
+**Tier 1: Geometric Surround Detection (`NR21 Mushroom`)**
+1. Finds the **20 Nearest Neighbors** and filters for upgraded sites (`NR21 & NR26` or `NR26 Only`).
+2. If there are at least 3 upgraded neighbors, it calculates the **Azimuth/Bearing Angles** to each one.
+3. If the **Maximum Angular Gap** is `<= 210 degrees`, the site is officially flanked in a 360-degree manner and flagged as an **`NR21 Mushroom`**.
+
+**Tier 2: 3GPP Continuous Coverage Enforcement (`Critical for Continuous NR26`)**
+1. To ensure that an `NR21 Mushroom` is actually covered by the surrounding `NR26` infrastructure (and not sitting in a massive physical gap), it calculates the Haversine distance to those surrounding sites.
+2. It enforces a strict **Maximum Distance Threshold (Radius)** based on the site's mathematically assigned clutter type:
+   * **DENSE URBAN:** Max 500 meters
+   * **URBAN:** Max 1,000 meters
+   * **SUB URBAN:** Max 2,000 meters
+   * **RURAL:** Max 5,000 meters
+3. If the site still maintains at least 3 upgraded neighbors that meet BOTH the 210-degree geometric wrap AND the physical Clutter distance thresholds, it is promoted to **`Critical for Continuous NR26`**.
 
 ## Output Features
 - **Unified Master Dashboard:** The script merges a high-performance Canvas Folium map, Chart.js KPI graphs, and an interactive Grid.js Data Table into a single, fully portable `.html` file.
