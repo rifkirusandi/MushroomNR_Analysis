@@ -1,0 +1,8 @@
+*.xlsx
+*.shp
+*.dbf
+*.shx
+*.prj
+*.html
+__pycache__/
+.ipynb_checkpoints/
