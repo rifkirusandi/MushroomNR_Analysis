@@ -1,6 +1,8 @@
 # NR Mushroom Spatial Analysis
 
-This repository contains advanced geospatial telemetry and spatial analysis logic used to identify completely surrounded `NR21 Mushroom` network sites. The script processes site coordinates, performs spatial joins with clutter data, and uses K-Nearest Neighbors (KNN) alongside angular bearing calculations to mathematically verify continuous coverage umbrellas.
+## Description
+
+This repository contains a Python-based advanced geospatial telemetry pipeline designed to analyze and stratify 5G network infrastructure. Using an innovative **Dual-Tier Categorization** algorithm, the system performs MapInfo Spatial Joins, physical 3GPP Clutter propagation mapping, and K-Nearest Neighbors (KNN) angular bearing calculations to accurately identify and prioritize isolated "Mushroom" cell sites that require immediate `NR2600` upgrades.
 
 ## Algorithm Logic & Rules
 
