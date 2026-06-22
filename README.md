@@ -6,6 +6,41 @@ This repository contains a Python-based advanced geospatial telemetry pipeline d
 
 ## Algorithm Logic & Rules
 
+```mermaid
+flowchart TD
+    A[Load Site Data *.xlsx] --> B[Categorize by TECHNOLOGY]
+    B --> C{Is site 'NR21 Only'?}
+    C -- No --> D[Ignore Site]
+    C -- Yes --> E[Spatial Join with MapInfo Clutter]
+    
+    E --> F[Find 20 Nearest Neighbors]
+    F --> G[Filter Upgraded Neighbors]
+    G --> H{>= 3 Upgraded Neighbors?}
+    
+    H -- No --> I[Not a Mushroom]
+    H -- Yes --> J[Calculate Geometric Bearings]
+    
+    J --> K{Max Angular Gap <= 210°?}
+    
+    K -- No --> I
+    K -- Yes --> L[Flag as 'NR21 Mushroom']
+    
+    L --> M[Check 3GPP Clutter Distance Thresholds]
+    M --> N{>= 3 Neighbors within Radius?}
+    
+    N -- No --> O[Keep as 'NR21 Mushroom']
+    N -- Yes --> P[Calculate Bearings of Close Neighbors]
+    
+    P --> Q{Max Angular Gap <= 210°?}
+    Q -- No --> O
+    Q -- Yes --> R[Promote to 'Critical Continuous NR26']
+    
+    R --> S[Generate Dashboard & Export]
+    O --> S
+    I --> S
+    D --> S
+```
+
 The analysis operates through a sophisticated, multi-stage spatial pipeline:
 
 ### 1. Dynamic Data Ingestion & Categorization
