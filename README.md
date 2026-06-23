@@ -62,14 +62,14 @@ The script evaluates every `NR21 Only` site against its surrounding `NR26` infra
 2. If there are at least 3 upgraded neighbors, it calculates the **Azimuth/Bearing Angles** to each one.
 3. If the **Maximum Angular Gap** is `<= 210 degrees`, the site is officially flanked in a 360-degree manner and flagged as an **`NR21 Mushroom`**.
 
-**Tier 2: 3GPP Continuous Coverage Enforcement (`Critical for Continuous NR26`)**
+**Tier 2: 3GPP Continuous Coverage Enforcement (`Critical NR21 Mushroom`)**
 1. To ensure that an `NR21 Mushroom` is actually covered by the surrounding `NR26` infrastructure (and not sitting in a massive physical gap), it calculates the Haversine distance to those surrounding sites.
 2. It enforces a strict **Maximum Distance Threshold (Radius)** based on the site's mathematically assigned clutter type:
    * **DENSE URBAN:** Max 500 meters
    * **URBAN:** Max 1,000 meters
    * **SUB URBAN:** Max 2,000 meters
    * **RURAL:** Max 5,000 meters
-3. If the site still maintains at least 3 upgraded neighbors that meet BOTH the 210-degree geometric wrap AND the physical Clutter distance thresholds, it is promoted to **`Critical for Continuous NR26`**.
+3. If the site still maintains at least 3 upgraded neighbors that meet BOTH the 210-degree geometric wrap AND the physical Clutter distance thresholds, it is promoted to **`Critical NR21 Mushroom`**.
 
 ### 4. Global Colocation Detection
 For physical RF planning and interference tracking, the algorithm performs a global baseline pass over every single site in the network:
