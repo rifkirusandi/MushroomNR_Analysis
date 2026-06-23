@@ -71,6 +71,12 @@ The script evaluates every `NR21 Only` site against its surrounding `NR26` infra
    * **RURAL:** Max 5,000 meters
 3. If the site still maintains at least 3 upgraded neighbors that meet BOTH the 210-degree geometric wrap AND the physical Clutter distance thresholds, it is promoted to **`Critical for Continuous NR26`**.
 
+### 4. Global Colocation Detection
+For physical RF planning and interference tracking, the algorithm performs a global baseline pass over every single site in the network:
+* It identifies the single closest physical neighbor to every site using the Haversine distance matrix.
+* If a site is mathematically `<= 20 meters` from another site, it is globally flagged as **Colocated (<=20m)**.
+* Colocated sites are visually highlighted with a glowing **Hollow Red Ring** on the Master Dashboard map, preventing them from being overlooked in dense urban clusters.
+
 ## Output Features
 - **Unified Master Dashboard:** The script merges a high-performance Canvas Folium map, Chart.js KPI graphs, and an interactive Grid.js Data Table into a single, fully portable `.html` file.
 - **Export Capabilities:** The dashboard allows for one-click CSV exporting of the actionable Mushroom sites.
