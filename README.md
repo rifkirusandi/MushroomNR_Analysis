@@ -9,9 +9,11 @@ This repository contains a Python-based advanced geospatial telemetry pipeline d
 ```mermaid
 flowchart TD
     A[Load Site Data *.xlsx] --> B[Categorize by TECHNOLOGY]
-    B --> C{Is site 'NR21 Only'?}
+    B --> C{{Is site 'NR21 Only'?}}
     C -- No --> D[Ignore Site]
-    C -- Yes --> E[Spatial Join with MapInfo Clutter]
+    C -- Yes --> IBS{{Is SITE_TYPE 'IBS'?}}
+    IBS -- Yes --> D
+    IBS -- No --> E[Spatial Join with MapInfo Clutter]
     
     E --> F[Find 20 Nearest Neighbors]
     F --> G[Filter Upgraded Neighbors]
