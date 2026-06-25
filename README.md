@@ -39,9 +39,9 @@ flowchart TD
     CLUTTER_LTE --> CRIT_LTE{{>= 3 Neighbors within Radius?}}
     CRIT_LTE -- Yes --> PROMOTE_LTE[Promote to 'Critical LTE Mushroom']
     
-    PROMOTE_NR --> DASH[Generate Unified Dashboard]
-    PROMOTE_LTE --> DASH
-    I --> DASH
+    PROMOTE_NR --> END([End])
+    PROMOTE_LTE --> END
+    I --> END
 ```
 
 The analysis operates through a sophisticated, multi-stage spatial pipeline:
