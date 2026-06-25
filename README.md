@@ -33,14 +33,18 @@ flowchart TD
     
     FLAG_NR --> CLUTTER_NR[Check 3GPP Clutter Distances]
     CLUTTER_NR --> CRIT_NR{{>= 3 Neighbors within Radius?}}
+    CRIT_NR -- No --> KEEP_NR[Keep as 'NR21 Mushroom']
     CRIT_NR -- Yes --> PROMOTE_NR[Promote to 'Critical NR21 Mushroom']
     
     FLAG_LTE --> CLUTTER_LTE[Check 3GPP Clutter Distances]
     CLUTTER_LTE --> CRIT_LTE{{>= 3 Neighbors within Radius?}}
+    CRIT_LTE -- No --> KEEP_LTE[Keep as 'LTE Mushroom']
     CRIT_LTE -- Yes --> PROMOTE_LTE[Promote to 'Critical LTE Mushroom']
     
     PROMOTE_NR --> END([End])
+    KEEP_NR --> END
     PROMOTE_LTE --> END
+    KEEP_LTE --> END
     I --> END
 ```
 
